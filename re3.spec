@@ -9,6 +9,7 @@ Summary:        Re-implementation of GTA 3 in C++
 
 License:        UNLICENSED
 URL:            https://github.com/halpz/re3
+%define build_dir %{name}-%{version}
 
 BuildRequires:       openal-devel
 BuildRequires:       libsndfile-devel
