@@ -47,7 +47,7 @@ sed -i 's/\/\/#define SQUEEZE_PERFORMANCE/#define SQUEEZE_PERFORMANCE/' src/core
 
 %build
 cd %{build_dir}
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%{_prefix} . -B redhat-linux-build -DLIBRW_PLATFORM=GL3 -DCMAKE_CXX_FLAGS="-std=c++11 %optflags"
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%{_prefix} . -B redhat-linux-build -DLIBRW_PLATFORM=GL3 -DCMAKE_CXX_FLAGS="-std=c++11 -fuse-ld=mold %optflags"
 make -C redhat-linux-build %{?_smp_mflags}
 
 
