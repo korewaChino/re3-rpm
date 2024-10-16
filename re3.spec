@@ -1,6 +1,7 @@
 %global git_commit 310dd8637147c4db643107b69d603902abc78141
 %global shortcommit %(c=%{git_commit}; echo ${c:0:7})
 
+
 Name:           re3
 Version:        git~%{shortcommit}
 Release:        1%{?dist}
@@ -20,6 +21,7 @@ BuildRequires:       cmake
 BuildRequires:       make
 BuildRequires:       pkg-config
 BuildRequires:       git
+BuildRequires:       mold
 
 Source0:             %{name}.desktop
 
@@ -33,10 +35,15 @@ cd %{build_dir}
 git checkout %{git_commit}
 git submodule update --init --recursive
 
+# let's configure the build for performance
+# uncomment ifdef FINAL and MASTER in src/core/config.h
+sed -i 's/\/\/#define FINAL/#define FINAL/' src/core/config.h
+sed -i 's/\/\/#define MASTER/#define MASTER/' src/core/config.h
+sed -i 's/\/\/#define SQUEEZE_PERFORMANCE/#define SQUEEZE_PERFORMANCE/' src/core/config.h
 
 %build
 cd %{build_dir}
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%{_prefix} . -B redhat-linux-build -DLIBRW_PLATFORM=GL3 -DCMAKE_CXX_FLAGS="-std=c++11 %optflags"
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%{_prefix} . -B redhat-linux-build -DLIBRW_PLATFORM=GL3 -DCMAKE_CXX_FLAGS="-std=c++11 -fuse-ld=mold %optflags"
 make -C redhat-linux-build %{?_smp_mflags}
 
 

@@ -22,6 +22,8 @@ BuildRequires:       cmake
 BuildRequires:       make
 BuildRequires:       pkg-config
 BuildRequires:       git
+BuildRequires:       mold
+
 Source0:             %{name}.desktop
 
 
@@ -36,6 +38,11 @@ cd %{build_dir}
 git checkout %{git_commit}
 git submodule update --init --recursive
 
+# let's configure the build for performance
+# uncomment ifdef FINAL and MASTER in src/core/config.h
+sed -i 's/\/\/#define FINAL/#define FINAL/' src/core/config.h
+sed -i 's/\/\/#define MASTER/#define MASTER/' src/core/config.h
+sed -i 's/\/\/#define SQUEEZE_PERFORMANCE/#define SQUEEZE_PERFORMANCE/' src/core/config.h
 
 
 %build
