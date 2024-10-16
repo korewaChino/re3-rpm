@@ -57,6 +57,7 @@ cp -r gamefiles %{buildroot}%{_datadir}/%{name}
 %{_datadir}/pixmaps/%{name}.svg
 %dir %{_datadir}/%{name}/
 %{_datadir}/%{name}/*
+%{_datadir}/applications/%{name}.desktop
 
 
 
