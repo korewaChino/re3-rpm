@@ -19,6 +19,10 @@ Liberty City Stories and Vice City Stories are not supported at this time becaus
 1. Build the package using the instructions above.
 2. Andaman should tell you it has built a packaged somewhere in `anda-build`, simply install it using `sudo dnf install <path-to-rpm>`.
 3. Install the game data from your original copy of the game inside `~/.reVC` or `~/.re3` depending on the game you are installing.
+4. Replace extra files from `/usr/share/reVC` or `/usr/share/re3` to `~/.reVC` or `~/.re3` respectively.
+   ```
+   cp -av /usr/share/reVC/* ~/.reVC # or ~/.re3
+   ```
 
 Now you should be able to run the game by opening the desktop entry. If you'd like to run it from the terminal you must enter the game directory and run the `reVC` or `re3` binary since re3 looks for the game data in the current working directory.
 
